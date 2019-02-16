@@ -14,5 +14,6 @@
   "Splits the input records on a regex which should match any delimiter used.
   Returns a seq of record fields."
   [input]
+  {:pre [(string? input)]}
   (str/split input delimiter-regex))
 

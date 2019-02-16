@@ -11,5 +11,8 @@
           expected ["Last" "First" "Gender" "FavColor" "DOB"]]
       (is (= expected (parse/parse-input comma-delimited)))
       (is (= expected (parse/parse-input pipe-delimited)))
-      (is (= expected (parse/parse-input space-delimited))))))
+      (is (= expected (parse/parse-input space-delimited)))))
+
+  (testing "Non-string input"
+    (is (thrown? AssertionError (parse/parse-input 12)))))
 
