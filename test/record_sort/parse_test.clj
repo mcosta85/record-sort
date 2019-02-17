@@ -13,7 +13,11 @@
           pipe-parsed (parse/parse-input pipe-delimited)
           space-parsed (parse/parse-input space-delimited)
 
-          expected ["Last" "First" "Gender" "FavColor" 946702800000]]
+          expected {:last-name "Last"
+                    :first-name "First"
+                    :gender "Gender"
+                    :favorite-color "FavColor"
+                    :dob "01/01/2000"}]
 
       (is (= expected comma-parsed pipe-parsed space-parsed))))
 
@@ -21,7 +25,7 @@
     (is (thrown? AssertionError (parse/parse-input 12))))
 
   (testing "Unexpected date format"
-    (is (thrown? java.text.ParseException
+    (is (thrown? AssertionError
                  (parse/parse-input "Last First Gender Color 01012000"))))
 
   (testing "Incomplete record"

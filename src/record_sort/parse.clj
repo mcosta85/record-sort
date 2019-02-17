@@ -10,23 +10,35 @@
 
   #"\s?[|,]?\s+")
 
+(defn- valid-date?
+  [date]
+  (try
+    (.parse (java.text.SimpleDateFormat. "MM/dd/yyyy") date)
+
+    (catch java.text.ParseException pe
+      false)))
+
 (defn- split-input
   "Splits the input records on a regex which should match any delimiter used.
   Returns a seq of record fields."
   [input]
   {:pre [(string? input)]
-   :post [(= 5 (count %))]}
+   :post [(= 5 (count %))
+          (valid-date? (get % 4))]}
   (str/split input delimiter-regex))
 
-(defn- parse-date
-  "Converts the date string to a timestamp."
-  [date]
-  (.getTime
-   (.parse (java.text.SimpleDateFormat. "MM/dd/yyyy") date)))
+(defn- format-output
+  "Creates a map representation of the record."
+  [[lname fname gender color dob]]
+  {:last-name lname
+   :first-name fname
+   :gender gender
+   :favorite-color color
+   :dob dob})
 
 (defn parse-input
   "Splits the input and parses the date field."
   [input]
   (-> input
       split-input
-      (update 4 parse-date)))
+      format-output))
