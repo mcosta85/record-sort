@@ -1,7 +1,4 @@
 (ns record-sort.core-test
   (:require [clojure.test :refer :all]
-            [record-sort.core :refer :all]))
+            [record-sort.core :as core]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
