@@ -5,14 +5,25 @@
 
 (deftest parse-input-test
   (testing "parsing of variously delimited records"
-    (let [comma-delimited "Last, First, Gender, FavColor, DOB"
+    (let [comma-delimited "Last, First, Gender, FavColor, 01/01/2000"
           pipe-delimited (str/replace comma-delimited #"," " |")
           space-delimited (str/replace comma-delimited #"," "")
-          expected ["Last" "First" "Gender" "FavColor" "DOB"]]
-      (is (= expected (parse/parse-input comma-delimited)))
-      (is (= expected (parse/parse-input pipe-delimited)))
-      (is (= expected (parse/parse-input space-delimited)))))
+
+          comma-parsed (parse/parse-input comma-delimited)
+          pipe-parsed (parse/parse-input pipe-delimited)
+          space-parsed (parse/parse-input space-delimited)
+
+          expected ["Last" "First" "Gender" "FavColor" 946702800000]]
+
+      (is (= expected comma-parsed pipe-parsed space-parsed))))
 
   (testing "Non-string input"
-    (is (thrown? AssertionError (parse/parse-input 12)))))
+    (is (thrown? AssertionError (parse/parse-input 12))))
+
+  (testing "Unexpected date format"
+    (is (thrown? java.text.ParseException
+                 (parse/parse-input "Last First Gender Color 01012000"))))
+
+  (testing "Incomplete record"
+    (is (thrown? AssertionError (parse/parse-input "Last First")))))
 
