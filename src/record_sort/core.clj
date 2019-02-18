@@ -19,20 +19,25 @@
   (doall (map println records))
   (println "\n\n"))
 
-(defn- sort-records
+(defn sort-records
   [sort-key records]
   (->> records
-       (map io/resource)
-       (map slurp)
-       (map #(str/split % #"\n"))
-       flatten
        (map parse/parse-input)
        (sort/sort-records sort-key)
        (map format-record)))
 
+(defn- read-files
+  [records]
+  (->> records
+       (map io/resource)
+       (map slurp)
+       (map #(str/split % #"\n"))
+       flatten))
+
 (defn -main
   [& records]
-  (let [[gender dob lname] (map sort-records [:gender :dob :last-name] (repeat records))]
+  (let [rows (read-files records)
+        [gender dob lname] (map sort-records [:gender :dob :last-name] (repeat rows))]
 
     (output-sorted-records :gender gender)
     (output-sorted-records :dob dob)
