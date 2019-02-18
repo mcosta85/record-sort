@@ -1,0 +1,5 @@
+Costa | Mason | Male | Green | 12/14/1985
+Costa | Masonette | Female | Green | 10/10/2010
+Smith | John | Male | Purple | 12/14/1985
+Slade | Sam | Male | Red | 01/01/2000
+Doe | Jane | Female | Black | 12/13/1985

@@ -1,0 +1,5 @@
+Simpson, Marge, Female, Blue, 04/05/1980
+Simpson, Homer, Male, Yellow, 03/04/1976
+Simpson, Bart, Male, Orange, 07/10/1999
+Simpson, Lisa, Female, Red, 10/12/2002
+Simpson, Maggie, Female, Cyan, 11/10/2010
